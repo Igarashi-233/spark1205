@@ -17,7 +17,7 @@ object WordCount {
     //    println(sc)
 
     //读取文件  将文件内容一行一行的读取
-    val lines: RDD[String] = sc.textFile("in/word.txt")
+    val lines: RDD[String] = sc.textFile("file:///opt/module/spark/in")
 
     //将每一行数据分解为单个单词
     val words: RDD[String] = lines.flatMap(_.split(" "))

@@ -3,21 +3,20 @@ package com.bigdata.spark
 import org.apache.spark.rdd.RDD
 import org.apache.spark.{SparkConf, SparkContext}
 
-object Spark06_Oper5 {
+object Spark14_Oper13 {
   def main(args: Array[String]): Unit = {
 
     val config: SparkConf = new SparkConf().setMaster("local[*]").setAppName("RDD")
 
     val sc = new SparkContext(config)
 
-    val listRDD: RDD[Int] = sc.makeRDD(List(1, 2, 3, 4, 5, 6, 7, 8, 9), 4)
+    val listRDD: RDD[Int] = sc.makeRDD(List(2, 1, 3, 9, 4, 6), 4)
 
-    //将一个分区的数据放到一个数组中
-    val glomRDD: RDD[Array[Int]] = listRDD.glom()
+    //根据自身大小排序 升序
+    println(listRDD.sortBy(x => x).collect().mkString(","))
 
-    glomRDD.collect().foreach(array => {
-      println(array.mkString(","))
-    })
+    //降序
+    println(listRDD.sortBy(x => x, false).collect().mkString(","))
 
   }
 }

@@ -3,21 +3,21 @@ package com.bigdata.spark
 import org.apache.spark.rdd.RDD
 import org.apache.spark.{SparkConf, SparkContext}
 
-object Spark06_Oper5 {
+object Spark17_Oper16 {
   def main(args: Array[String]): Unit = {
 
     val config: SparkConf = new SparkConf().setMaster("local[*]").setAppName("RDD")
 
     val sc = new SparkContext(config)
 
-    val listRDD: RDD[Int] = sc.makeRDD(List(1, 2, 3, 4, 5, 6, 7, 8, 9), 4)
+    val listRDD: RDD[Int] = sc.makeRDD(1 to 8)
 
-    //将一个分区的数据放到一个数组中
-    val glomRDD: RDD[Array[Int]] = listRDD.glom()
+    val listRDD2: RDD[Int] = sc.makeRDD(5 to 10)
 
-    glomRDD.collect().foreach(array => {
-      println(array.mkString(","))
-    })
+    // 5,6,7,8
+    val intersectionRDD: RDD[Int] = listRDD.intersection(listRDD2)
+
+    println(intersectionRDD.collect().mkString(","))
 
   }
 }

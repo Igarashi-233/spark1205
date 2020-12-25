@@ -3,21 +3,20 @@ package com.bigdata.spark
 import org.apache.spark.rdd.RDD
 import org.apache.spark.{SparkConf, SparkContext}
 
-object Spark06_Oper5 {
+object Spark09_Oper8 {
   def main(args: Array[String]): Unit = {
 
     val config: SparkConf = new SparkConf().setMaster("local[*]").setAppName("RDD")
 
     val sc = new SparkContext(config)
 
-    val listRDD: RDD[Int] = sc.makeRDD(List(1, 2, 3, 4, 5, 6, 7, 8, 9), 4)
+    val listRDD: RDD[Int] = sc.makeRDD(1 to 10)
 
-    //将一个分区的数据放到一个数组中
-    val glomRDD: RDD[Array[Int]] = listRDD.glom()
+    //从指定集合中进行抽样处理 根据不同算法进行抽样
+    val sampleRDD: RDD[Int] = listRDD.sample(false, 0.4, 1)
 
-    glomRDD.collect().foreach(array => {
-      println(array.mkString(","))
-    })
+    sampleRDD.collect().foreach(println)
+
 
   }
 }

@@ -1,0 +1,5 @@
+//Spark可以识别单行的JSON
+{"name": "IGARASHI","age": 233,"damage": 600}
+{"name": "KAORI","age": 12,"damage": 33}
+{"name": "GENJI","age": 21,"damage": 60}
+{"name": "HANZO","age": 25,"damage": 250}
